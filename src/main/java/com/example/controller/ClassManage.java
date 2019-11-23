@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,6 +25,7 @@ public class ClassManage {
     @RequestMapping(value = "/class")
     @ResponseBody
     public String progress( @RequestBody AllBean allBean) throws IOException {
+        System.out.println("class");
         Integer oid= allBean.getOid();
         List<AllBean> list= userMapper.findallIdClasstime(oid);
         int lenth=list.size();
@@ -43,13 +45,16 @@ public class ClassManage {
             allBean1.setUpath(tempBean.getUpath());
             allBean1.setUmessage(tempBean.getUmessage());
             //拿到feed信息
+            //如果fid没有也设置为--
+
+                allBean1.setFeedbackdatetime("null");
 
             if (allBean1.getFid()!=null){
                 AllBean tempBean2=userMapper.findFallMessage(allBean1.getFid());
                 allBean1.setFeedbackdate(tempBean2.getFeedbackdate());
                 allBean1.setFeedbacktime(tempBean2.getFeedbacktime());
                 if (tempBean2.getFeedbackdate()!=null){
-                    allBean1.setFeedbackdatetime(tempBean2.getFeedbackdate()+"  "+tempBean2.getFeedbacktime());
+                    allBean1.setFeedbackdatetime(tempBean2.getFeedbackdate()+" "+tempBean2.getFeedbacktime());
                 }
                 allBean1.setFpath(tempBean2.getFpath());
                 allBean1.setFmessage(tempBean2.getFmessage());
@@ -59,7 +64,10 @@ public class ClassManage {
         }
 
 
-
+        System.out.println(JSON.toJSONString(list));
+        if (list.size()==0){
+            return "1";
+        }
 
         return JSON.toJSONString(list);
     }

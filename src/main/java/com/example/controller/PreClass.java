@@ -23,7 +23,9 @@ public class PreClass {
     @RequestMapping(value = "/subscribe")
     @ResponseBody
     public String progress( @RequestBody AllBean allBean) throws IOException {
+        System.out.println("subscribe");
         Integer oid= allBean.getOid();
+
         List<AllBean> list =userMapper.findSubscribe(oid);
         int length= list.size();
         for (int i=0;i<length;i++){
@@ -44,7 +46,7 @@ public class PreClass {
 
         }
 
-
+        System.out.println(JSON.toJSONString(list));
         return JSON.toJSONString(list);
     }
 }

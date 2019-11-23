@@ -22,10 +22,9 @@ public class Progress {
 
     @RequestMapping(value = "/progress")
     public String progress(  @RequestBody AllBean allBean) throws IOException {
+        System.out.println("课程进度");
         Integer oid= allBean.getOid();
-        Integer zclasstime=userMapper.findzclasstime(oid);
-        AllBean allBean1 = new AllBean();
-        allBean1.setClasstime(zclasstime);
+        System.out.println("progress");
 
         List<AllBean> lis=userMapper.findtidtname(oid);
         int size =lis.size();
@@ -33,9 +32,11 @@ public class Progress {
             AllBean ab=lis.get(i);
             Integer tid = ab.getTid();
             Integer[] classtime=userMapper.findclasstime(tid);
+//            ab.setTname();
             ab.setClasstime(classtime.length);
+            System.out.println(ab.getTname());
         }
-        lis.add(allBean1);
+//        lis.add(allBean1);
 
 //        System.out.println(JSON.toJSONString(lis));
 

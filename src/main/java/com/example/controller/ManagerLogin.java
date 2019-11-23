@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(value = "/organization")
 public class ManagerLogin {
@@ -21,6 +19,7 @@ public class ManagerLogin {
     @RequestMapping(value = "/login")
     @ResponseBody
         public String addSub( @RequestBody AllBean allBean){
+        System.out.println("login");
         String b = "f";
         String username1=allBean.getUsername();
         String password1= allBean.getPassword();

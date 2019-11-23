@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import sun.plugin2.message.JavaScriptBaseMessage;
 
 @RestController
 @RequestMapping(value = "/organization")
@@ -20,10 +19,13 @@ public class UpdatePassword {
     @RequestMapping(value = "/updatepassword")
     @ResponseBody
     public String uodatePassword(@RequestBody AllBean allBean) {
+        System.out.println("改密码");
         String username1 = allBean.getUsername();
         String password1 = allBean.getPassword();
         Integer oid = allBean.getOid();
         userMapper.update(username1, password1,oid);
+        userMapper.updateone(oid);
+
 
         return JSON.toJSONString("ok");
     }

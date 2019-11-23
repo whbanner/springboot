@@ -11,10 +11,10 @@ import java.util.Map;
 @Repository
 public interface UserMapper {
 
-    @Select("SELECT classtime FROM Organization where oid=#{oid}")
+    @Select("SELECT classtime FROM organization where oid=#{oid}")
     Integer findzclasstime(int oid);
 
-    @Select("SELECT tid,tname from Teacher where oid=#{oid}")
+    @Select("SELECT tid,tname from teacher where oid=#{oid}")
     List<AllBean> findtidtname(int oid);
 
     @Select("select classtime from classTime where tid=#{tid}")
@@ -23,19 +23,19 @@ public interface UserMapper {
     @Select("SELECT * FROM  classTime where oid=#{oid}")
     List<AllBean> findallIdClasstime(int oid);
 
-    @Select("SELECT aname FROM Artist where aid=#{aid}")
+    @Select("SELECT aname FROM artist where aid=#{aid}")
     String findaname(int aid);
 
-    @Select("SELECT sname FROM Student where sid=#{sid}")
+    @Select("SELECT sname FROM student where sid=#{sid}")
     String findsname(int sid);
 
-    @Select("SELECT * FROM Upload where uid=#{uid}")
+    @Select("SELECT * FROM upload where uid=#{uid}")
     AllBean findUallMessage(int uid);
 
     @Select("SELECT * FROM feed WHERE fid=#{fid}")
     AllBean findFallMessage(int fid);
 
-    @Select("SELECT * FROM Subscribe WHERE oid=#{oid}")
+    @Select("SELECT * FROM subscribe WHERE oid=#{oid}")
     List<AllBean> findSubscribe(int oid);
 
     @Insert("INSERT INTO Subscribe VALUES(#{aid},#{allstudent},#{sutime},#{oid},#{suid},#{sudate},'0',#{spectrum},#{song})")
@@ -43,15 +43,20 @@ public interface UserMapper {
                         @Param("suid")Integer suid,@Param("sudate")String sudate,
                         @Param("spectrum")String spectrum,@Param("song")String song);
 
-    @Insert("INSERT INTO Subscribe VALUES(#{aid},#{allstudent},#{sutime},#{oid},#{suid},#{sudate},'0',#{spectrum},#{song})")
+    @Insert("INSERT INTO subscribe VALUES(#{aid},#{allstudent},#{sutime},#{oid},#{suid},#{sudate},'0',#{spectrum},#{song})")
     int insertSub(AllBean allBean);
 
-    @Select("SELECT username,password,one FROM Organization where oid=#{oid}")
+    @Select("SELECT username,password,one FROM organization where oid=#{oid}")
     AllBean findManager(int oid);
 
-    @Update("UPDATE Organization set username=#{username},password=#{password} where oid=#{oid}")
+    @Update("UPDATE organization set username=#{username},password=#{password} where oid=#{oid}")
     void update(String username,String password,int oid);
 
+    @Select("select oid,organization from organization " )
+    List<AllBean> findOMessage();
+
+    @Update("update organization set one='1' where oid =#{oid}")
+    void updateone(Integer oid);
 
 //    @Select("SELECT * FROM test1 WHERE name =#{name}")
 //    AllBean findByName(@Param("name") String name);
